@@ -1,5 +1,5 @@
 const { ProductRepository } = require('../repositories/productRepository');
-const { Product } = require('./product');
+const Product = require('../classes/product');
 
 class ProductService {
   constructor(productRepository) {

@@ -1,5 +1,6 @@
 const mysql = require('mysql2/promise');
 
+
 class ProductRepository {
   constructor(connection) {
     this.connection = connection;
