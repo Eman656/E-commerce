@@ -30,10 +30,20 @@ class CategoryService {
     }
   }
 
-  async updateCategory(categoryData) {
-    const { id, category, description} = categoryData;
+  async getAllCategories() {
+    try {
+      const category = await this.categoryRepository.findAll();
+      return category;
+    } catch (error) {
+      console.error(error);
+      throw new Error('Failed to get category');
+    }
+  }
 
-    const categoryObj = new Category(id, category, description);
+  async updateCategory(categoryData) {
+    const { id, title, description} = categoryData;
+
+    const categoryObj = new Category(id, title, description);
 
     try {
       await this.categoryRepository.update(categoryObj);

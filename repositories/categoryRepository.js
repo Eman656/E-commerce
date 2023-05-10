@@ -32,6 +32,19 @@ class CategoryRepository {
     }
   }
 
+  async findAll() {
+    const connection = await this.connection.getConnection();
+    try {
+      const [rows] = await connection.query('SELECT * FROM category');
+      return rows;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    } finally {
+      connection.release();
+    }
+  }
+
   async update(category) {
     const { id, title, description} = category;
     const connection = await this.connection.getConnection();
