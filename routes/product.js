@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const admin = require('../middleware/admin');
 const ProductService = require('../service_class/productService');
 const { ProductRepository } = require('../repositories/productRepository');
 const connection = require('../db_connection');
@@ -8,7 +9,7 @@ const productRepository = new ProductRepository(connection);
 const productService = new ProductService(productRepository);
 
 // Create a new product
-router.post('/', async (req, res) => {
+router.post('/', admin, async (req, res) => {
   try {
     const result = await productService.createProduct(req.body);
     res.status(201).json(result);
@@ -38,7 +39,7 @@ router.get('/', async (req, res) => {
 });
 
 // Update a product
-router.put('/:id', async (req, res) => {
+router.put('/:id', admin, async (req, res) => {
   try {
     const result = await productService.updateProduct({ id: req.params.id, ...req.body });
     res.json(result);
@@ -48,7 +49,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // Delete a product
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', admin, async (req, res) => {
   try {
     const result = await productService.deleteProduct(req.params.id);
     res.json(result);
