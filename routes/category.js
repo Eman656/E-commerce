@@ -27,6 +27,16 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// Get all categories
+router.get('/', async (req, res) => {
+  try {
+    const category = await categoryService.getAllCategories();
+    res.json(category);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Update a category
 router.put('/:id', async (req, res) => {
   try {

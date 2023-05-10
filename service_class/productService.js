@@ -30,6 +30,16 @@ class ProductService {
     }
   }
 
+  async getAllProducts() {
+    try {
+      const product = await this.productRepository.findAll();
+      return product;
+    } catch (error) {
+      console.error(error);
+      throw new Error('Failed to get product');
+    }
+  }
+
   async updateProduct(productData) {
     const { id, title, description, cat_id, price, brand} = productData;
 

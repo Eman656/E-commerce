@@ -27,6 +27,16 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// Get all product
+router.get('/', async (req, res) => {
+  try {
+    const product = await productService.getAllProducts();
+    res.json(product);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Update a product
 router.put('/:id', async (req, res) => {
   try {
