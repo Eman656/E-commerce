@@ -6,12 +6,12 @@ class CategoryRepository {
   }
 
   async insert(category) {
-    const { title, description, img } = category;
+    const { title, description} = category;
     const connection = await this.connection.getConnection();
     try {
       const [result] = await connection.query(
-        'INSERT INTO category (title, description, img) VALUES (?, ?, ?)',
-        [title, description, img]
+        'INSERT INTO category (title, description) VALUES (?, ?)',
+        [title, description]
       );
       return { id: result.insertId, ...category };
     } finally {
@@ -33,12 +33,12 @@ class CategoryRepository {
   }
 
   async update(category) {
-    const { id, title, description, img } = category;
+    const { id, title, description} = category;
     const connection = await this.connection.getConnection();
     try {
       await connection.query(
-        'UPDATE category SET title = ?, description = ?, img = ? WHERE id = ?',
-        [title, description, img, id]
+        'UPDATE category SET title = ?, description = ? WHERE id = ?',
+        [title, description, id]
       );
       return { id, ...category };
     } finally {

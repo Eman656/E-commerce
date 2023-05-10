@@ -33,6 +33,19 @@ class ProductRepository {
     }
   }
 
+  async findAll() {
+    const connection = await this.connection.getConnection();
+    try {
+      const [rows] = await connection.query('SELECT * FROM product;');
+      return rows;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    } finally {
+      connection.release();
+    }
+  }
+
   async update(product) {
     const { id, title, description, cat_id, price, brand} = product;
     const connection = await this.connection.getConnection();

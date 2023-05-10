@@ -7,10 +7,9 @@ class CategoryService {
   }
 
   async createCategory(categoryData) {
-    const { id, category, description, img } = categoryData;
+    const { id, title, description} = categoryData;
 
-    // Create a new Category object with the request body values
-    const categoryObj = new Category(id, category, description, img);
+    const categoryObj = new Category(id, title, description);
 
     try {
       await this.categoryRepository.insert(categoryObj);
@@ -32,10 +31,9 @@ class CategoryService {
   }
 
   async updateCategory(categoryData) {
-    const { id, category, description, img } = categoryData;
+    const { id, category, description} = categoryData;
 
-    // Create a new Category object with the request body values
-    const categoryObj = new Category(id, category, description, img);
+    const categoryObj = new Category(id, category, description);
 
     try {
       await this.categoryRepository.update(categoryObj);
