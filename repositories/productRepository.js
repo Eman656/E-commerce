@@ -7,12 +7,12 @@ class ProductRepository {
   }
 
   async insert(product) {
-    const { title, description, cat_id, price, brand, img } = product;
+    const { title, description, cat_id, price, brand} = product;
     const connection = await this.connection.getConnection();
     try {
       const [result] = await connection.query(
-        'INSERT INTO product (title, description, cat_id, price, brand, img) VALUES (?, ?, ?, ?, ?, ?)',
-        [title, description, cat_id, price, brand, img]
+        'INSERT INTO product (title, description, cat_id, price, brand) VALUES (?, ?, ?, ?, ?)',
+        [title, description, cat_id, price, brand]
       );
       return { id: result.insertId, ...product };
     } finally {
@@ -34,12 +34,12 @@ class ProductRepository {
   }
 
   async update(product) {
-    const { id, title, description, cat_id, price, brand, img } = product;
+    const { id, title, description, cat_id, price, brand} = product;
     const connection = await this.connection.getConnection();
     try {
       await connection.query(
-        'UPDATE product SET title = ?, description = ?, cat_id = ?, price = ?, brand = ?, img = ? WHERE id = ?',
-        [title, description, cat_id, price, brand, img, id]
+        'UPDATE product SET title = ?, description = ?, cat_id = ?, price = ?, brand = ? WHERE id = ?',
+        [title, description, cat_id, price, brand, id]
       );
       return { id, ...product };
     } finally {

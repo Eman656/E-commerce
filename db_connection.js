@@ -4,7 +4,7 @@ const connection = mysql.createPool({
     host: "localhost",
     user: "root",
     password: "",
-    database: "kazem",
+    database: "ecommerce",
     port:3306,
   waitForConnections: true,
   connectionLimit: 10,

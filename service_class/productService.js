@@ -7,10 +7,9 @@ class ProductService {
   }
 
   async createProduct(productData) {
-    const { title, description, cat_id, price, brand, img } = productData;
+    const { title, description, cat_id, price, brand} = productData;
 
-    // Create a new Product object with the request body values
-    const product = new Product(null, title, description, cat_id, price, brand, img);
+    const product = new Product(null, title, description, cat_id, price, brand);
 
     try {
       await this.productRepository.insert(product);
@@ -32,10 +31,9 @@ class ProductService {
   }
 
   async updateProduct(productData) {
-    const { id, title, description, cat_id, price, brand, img } = productData;
+    const { id, title, description, cat_id, price, brand} = productData;
 
-    // Create a new Product object with the request body values
-    const product = new Product(id, title, description, cat_id, price, brand, img);
+    const product = new Product(id, title, description, cat_id, price, brand);
 
     try {
       await this.productRepository.update(product);
