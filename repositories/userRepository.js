@@ -1,6 +1,10 @@
 const mysql = require('mysql2/promise');
 const bcrypt = require('bcrypt');
 
+const util = require("util"); // helper
+
+
+
 class Auth {
   constructor(connection) {
     this.connection = connection;
@@ -10,10 +14,8 @@ class Auth {
     const { first_name, last_name, email, phone, address, password, type } = user;
     const connection = await this.connection.getConnection();
     try {
-      // Hash the password
       const hashedPassword = await bcrypt.hash(password, 10);
 
-      // Create a new user
       const [result] = await connection.query(
         'INSERT INTO users (first_name, last_name, email, phone, address, password, type) VALUES (?, ?, ?, ?, ?, ?, ?)',
         [first_name, last_name, email, phone, address, hashedPassword, type]
@@ -31,7 +33,9 @@ class Auth {
     const connection = await this.connection.getConnection();
     try {
       // Find the user by email
-      const [rows] = await connection.query('SELECT * FROM users WHERE email = ?', [email]);
+
+      const query = util.promisify(connection.query).bind(connection);
+      const [rows] = await query('SELECT * FROM users WHERE email = ?', [email]);
       const user = rows[0];
 
       // Verify the password

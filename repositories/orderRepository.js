@@ -46,6 +46,19 @@ class OrderRepository {
     }
   }
 
+  async findAllUserOrders(user_id) {
+    const connection = await this.connection.getConnection();
+    try {
+      const [rows] = await connection.query('SELECT * FROM orders WHERE user_id = ?', [user_id]);
+      return rows[0];
+    } catch (error) {
+      console.error(error);
+      throw error;
+    } finally {
+      connection.release();
+    }
+  }
+
   async update(order) {
     const { id, item_id, quantity} = order;
     const connection = await this.connection.getConnection();

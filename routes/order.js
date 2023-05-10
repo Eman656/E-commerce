@@ -27,6 +27,17 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// Get history order for user
+router.get('/userHistory/:id', async (req, res) => {
+    try {
+      const order = await orderService.findAllUserOrders(req.params.id);
+      console.log(req.params.id);
+      res.json(order);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+
 // Get all orders
 router.get('/', async (req, res) => {
   try {

@@ -40,6 +40,16 @@ class OrderService {
     }
   }
 
+  async findAllUserOrders() {
+    try {
+      const orders = await this.orderRepository.findAllUserOrders();
+      return orders;
+    } catch (error) {
+      console.error(error);
+      throw new Error('Failed to get orders');
+    }
+  }
+
   async updateOrder(orderData) {
     const { id, user_id, item_id, quantity, order_date, deliver_date, status, total_price } = orderData;
 
@@ -53,7 +63,7 @@ class OrderService {
       throw new Error('Failed to update order');
     }
   }
-  
+
   async updateOrderToDeliverd(orderData) {
     const { id, user_id, item_id, quantity, order_date, deliver_date, status, total_price } = orderData;
 

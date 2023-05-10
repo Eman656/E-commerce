@@ -1,65 +1,18 @@
-const { ProductRepository } = require('../repositories/productRepository');
-const Product = require('../classes/product');
+const { UserRepository } = require('../repositories/userRepository');
+const User = require('../classes/user');
 const { Auth } = require('../auth');
 
-class ProductService {
-  constructor(productRepository, auth) {
-    this.productRepository = productRepository;
+class Userervice {
+  constructor(UserRepository, auth) {
+    this.UserRepository = UserRepository;
     this.auth = auth;
   }
 
-  async createProduct(productData) {
-    const { title, description, cat_id, price, brand} = productData;
-
-    const product = new Product(null, title, description, cat_id, price, brand);
-
-    try {
-      await this.productRepository.insert(product);
-      return { message: 'Product created successfully' };
-    } catch (error) {
-      console.error(error);
-      throw new Error('Failed to create product');
-    }
-  }
-
-  async getProductById(id) {
-    try {
-      const product = await this.productRepository.findById(id);
-      return product;
-    } catch (error) {
-      console.error(error);
-      throw new Error('Failed to get product');
-    }
-  }
-
-  async updateProduct(productData) {
-    const { id, title, description, cat_id, price, brand} = productData;
-
-    const product = new Product(id, title, description, cat_id, price, brand);
-
-    try {
-      await this.productRepository.update(product);
-      return { message: 'Product updated successfully' };
-    } catch (error) {
-      console.error(error);
-      throw new Error('Failed to update product');
-    }
-  }
-
-  async deleteProduct(id) {
-    try {
-      await this.productRepository.delete(id);
-      return { message: 'Product deleted successfully' };
-    } catch (error) {
-      console.error(error);
-      throw new Error('Failed to delete product');
-    }
-  }
 
   async register(user) {
     try {
       const result = await this.auth.register(user);
-      return result;
+      return "added successfully\n" + result;
     } catch (error) {
       console.error(error);
       throw new Error('Failed to register user');
